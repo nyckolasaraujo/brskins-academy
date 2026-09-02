@@ -5,6 +5,7 @@ autor: "Nyckolas Araujo"
 O que aprendi hoje?
 
 Aprendi a criar um repositorio , consegui clonar do github para o vscode!
+criei e alteirei uma pasta  e fiz um relatorio do exercicio de hoje. depois adicionei meus dois arquivos na aréa de preparação (staging) , deixei pronto para ficarem salvos no Git. e fiz meu primeiro commit.
 
 Principais dificuldades ou duvidas?
 
