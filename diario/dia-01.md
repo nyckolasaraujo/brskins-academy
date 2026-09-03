@@ -15,11 +15,13 @@ git , node ,npm ,dotnet e psql. Porem foi tudo resolvido!
 
 Checkpoint -
 
-1- Qual diferença entre git commit e git push? oque acontece se voce fizer commit e fechar o computador sem push?
-
-A diferença é que o git commit ele copia e salva os arquivos apenas no proprio sistema da maquina.
+1-A diferença é que o git commit ele copia e salva os arquivos apenas no proprio sistema da maquina.
 já o git push ele salva e envia para a nuvens de armazenamento no caso o Github.
 
 Se fizer o commit do arquivo e fechar o computador sem o push , apenas ficara salvo no proprio sistema da maquina .
 
-2-
+2-ao clicar no "+" ele executa o comando git add . isso faz com que ele  altere da area de trabalho para a area de preparação.
+
+ao clicar no "commit" executa o comando git commit . pega tudo que estava na area de preparação e salva como novo ponto do repositório.
+
+3-ele serve como um perfil das informação do projeto . Apresentar o projeto com os detalhes do que foi feito..
