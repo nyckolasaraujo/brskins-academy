@@ -13,4 +13,13 @@ apenas uma dificudade de abrir o terminal e ver se estava tudo certo nas instala
 git , node ,npm ,dotnet e psql. Porem foi tudo resolvido!
 
 
+Checkpoint -
 
+1- Qual diferença entre git commit e git push? oque acontece se voce fizer commit e fechar o computador sem push?
+
+A diferença é que o git commit ele copia e salva os arquivos apenas no proprio sistema da maquina.
+já o git push ele salva e envia para a nuvens de armazenamento no caso o Github.
+
+Se fizer o commit do arquivo e fechar o computador sem o push , apenas ficara salvo no proprio sistema da maquina .
+
+2-
