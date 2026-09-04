@@ -1,0 +1,1 @@
+Um commit é uma foto dos arquivos.
