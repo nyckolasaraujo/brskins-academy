@@ -1,6 +1,6 @@
 AS funções utilizam os metodos de array do JavaScript/ TypeScript:
 
-1- function availableItems()
+1- function availableItems().
 
 // Utiliza o Método .filter() que percorre o array original e retorna um novo array contendo apenas os elementos que passam na condição booleana informada (s.available).
 

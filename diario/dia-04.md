@@ -8,7 +8,7 @@ Aprendi a criar uma função com um tipo de lista de produtos e valores, Nela co
 1-qual a diferença entre filter e find? E entre o map e forEach?
 
 filter(): Cria e retorna um novo array contendo todos os elementos do array original que passam no teste implementado pela função de condição (retornam true).
-find(): Percorre o array original e retorna o primeiro elemento que satisfaz a condição informada, ele retorna (undefined).
+find(): Percorre o array original e retorna o primeiro elemento que satisfaz a condição informada, ele retorna (undefined)..
 
  o .map() transforma cada item e retorna um novo array do mesmo tamanho, o .forEach() apenas percorre os dados existentes sem gerar nenhuma estrutura de saída.
 
