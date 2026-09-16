@@ -31,7 +31,7 @@ async function main() {
     if (postsVazios.length === 0) {
         console.log("Nenhum post encontrado para o usuário com ID 9999.");
     } else {
-        console.log("encontrado:", postsVazios.length);
+        console.log("encontrado:", postsVazios.length); 
     }
 
 }

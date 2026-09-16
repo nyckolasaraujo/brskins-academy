@@ -7,7 +7,7 @@ Nessa aula  eu aprendi a enviar requisições GET e POST para uma API e ler a re
 1- O que muda entre um GET e em POST , além do nome? onde vão os dados em cada um ?
 
 O método GET solicita a representação de um recurso específico. Requisições utilizando o método GET devem retornar apenas dados.
-
+ 
 O método POST é utilizado para submeter uma entidade a um recurso específico, frequentemente causando uma mudança no estado do recurso ou efeitos colaterais no servidor.
 
 GET (Na URL): Os dados são anexados diretamente na URL da requisição.
