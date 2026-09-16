@@ -26,4 +26,4 @@
 500 Internal Server Error
 (a)O servidor encontrou uma situação com a qual não sabe lidar.
 (b)ex: Queda no banco de dados durante o pagamento.
-(c)correção no backend!
+(c)correção no backend! 
