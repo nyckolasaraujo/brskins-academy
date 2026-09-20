@@ -1,7 +1,7 @@
 dia 20/09/2026
 ETAPA-5 SQL com PostgreSQL 
 
-Hoje eu aprendi sobre Consultas Avançadas e Junções: Pratiquei a utilização de JOIN e LEFT JOIN para cruzar dados entre múltiplas tabelas. Funções de Agregação e Relatórios: Utilizar SUM, COUNT, AVG e ROUND para calcular totais por pedido, itens mais vendidos e itens nunca comprados.
+Hoje eu aprendi sobre Consultas Avançadas e Junções: Pratiquei a utilização de JOIN e LEFT JOIN para cruzar dados entre múltiplas tabelas. Funções de Agregação e Relatórios: Utilizar SUM, COUNT, AVG e ROUND para calcular totais por pedido, itens mais vendidos e itens nunca comprados!
 
  Integridade Referencial e Restrições: Compreendi o papel essencial das chaves estrangeiras (Foreign Keys) na proteção contra dados órfãos, validando-as na prática ao tentar apagar um utilizador com pedidos ativos.
 
