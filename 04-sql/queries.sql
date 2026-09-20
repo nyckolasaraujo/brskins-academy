@@ -44,6 +44,6 @@ SET available = FALSE
 WHERE id = 3;
 
 DELETE FROM users 
-WHERE id = 1;
+WHERE id = 1; 
 
 -- O PostgreSQL impediu que o utilizador 1 fosse apagado porque existem pedidos associados a ele, garantindo a integridade dos dados da base de dados.--
