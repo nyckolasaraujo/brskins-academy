@@ -18,4 +18,4 @@ export function SkinCard({ skin, favorito, onFavoritar }: Props) {
       </button>
     </li>
   );
-} 
+}
