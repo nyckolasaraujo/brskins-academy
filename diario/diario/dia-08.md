@@ -3,7 +3,7 @@ Etapa-07 - Rotas no Next.js: listagem e detalhe
 
 Nessa aula aprendi criar rotas com pastas , entender oque roda no servidor e o que roda no navegador (Sever vs Client Components). Tratar os estados de carregamento e "não encontrado".
 
-CHECKPOINT-
+Respostas CHECKPOINT- 
 
  1. Por que é que o ItemsPage pode ser async e o Catalog não pode?
   O ItemsPage é um Server Component (corre no servidor por padrão no App Router), o que permite que a função seja assíncrona (async) para buscar dados diretamente antes de enviar o HTML pronto para o navegador. Já o Catalog é um Client Component (utiliza "use client" para gerir estados interativos como useState), e os componentes do cliente no React não podem ser assíncronos porque a renderização no browser precisa de ser síncrona. 
