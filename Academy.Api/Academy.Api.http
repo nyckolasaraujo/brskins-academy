@@ -1,0 +1,35 @@
+
+@base = http://localhost:5123
+
+### Listar (esperado 200 com 2 itens)[cite: 11]
+GET {{base}}/api/items[cite: 11]
+
+### Detalhe existente (esperado 200)[cite: 11]
+GET {{base}}/api/items/1[cite: 11]
+
+### Detalhe inexistente (esperado 404)[cite: 11]
+GET {{base}}/api/items/999[cite: 11]
+
+### Criar (esperado 201 + header Location)[cite: 11]
+POST {{base}}/api/items[cite: 11]
+Content-Type: application/json[cite: 11]
+
+{ "name": "Glock-18 | Fade", "price": 900 }[cite: 11]
+
+### Criar inválido (esperado 400)[cite: 11]
+POST {{base}}/api/items[cite: 11]
+Content-Type: application/json[cite: 11]
+
+{ "name": "", "price": -1 }[cite: 11]
+
+### Mudar disponibilidade (esperado 200 com available=false)[cite: 11]
+PUT {{base}}/api/items/1/availability[cite: 11]
+Content-Type: application/json[cite: 11]
+
+{ "available": false }[cite: 11]
+
+### Mudar disponibilidade de id inexistente (esperado 404)[cite: 11]
+PUT {{base}}/api/items/999/availability[cite: 11]
+Content-Type: application/json[cite: 11]
+
+{ "available": false }[cite: 11]
