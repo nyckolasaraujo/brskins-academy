@@ -1,5 +1,5 @@
 
-@base = http://localhost:5123
+@base = http://localhost:5065
 
 ### Listar (esperado 200 com 2 itens)[cite: 11]
 GET {{base}}/api/items[cite: 11]
@@ -33,3 +33,15 @@ PUT {{base}}/api/items/999/availability[cite: 11]
 Content-Type: application/json[cite: 11]
 
 { "available": false }[cite: 11]
+
+### Apagar item existente (esperado 24 No Content)
+DELETE {{base}}/api/items/1
+
+### Apagar item inexistente (esperado 404 Not Found)
+DELETE {{base}}/api/items/999
+
+### Listar apenas itens disponíveis (esperado 200 com itens true)
+GET {{base}}/api/items?available=true
+
+### Listar apenas itens indisponíveis (esperado 200 com itens false)
+GET {{base}}/api/items?available=false

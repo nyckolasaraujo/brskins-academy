@@ -16,7 +16,11 @@ public class ItemsController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll() => Ok(_service.GetAll());
+public IActionResult GetAll([FromQuery] bool? available)
+{
+    var items = _service.GetAll(available);
+    return Ok(items);
+}
 
     [HttpGet("{id:int}")]
     public IActionResult GetById(int id)
@@ -25,17 +29,20 @@ public class ItemsController : ControllerBase
         return item is null ? NotFound() : Ok(item);
     }
 
-    [HttpPost]
-    public IActionResult Create(CreateItemDto dto)
+ [HttpPost]
+public IActionResult Create(CreateItemDto dto)
+{
+    try
     {
-        if (string.IsNullOrWhiteSpace(dto.Name) || dto.Price <= 0)
-        {
-            return BadRequest(new { error = "Nome obrigatório e preço > 0." });
-        }
         var created = _service.Create(dto);
         return CreatedAtAction(
             nameof(GetById), new { id = created.Id }, created);
     }
+    catch (ArgumentException ex)
+    {
+        return BadRequest(new { error = ex.Message });
+    }
+}
 
     [HttpPut("{id:int}/availability")]
     public IActionResult UpdateAvailability(int id, UpdateAvailabilityDto dto)
@@ -43,4 +50,11 @@ public class ItemsController : ControllerBase
         var updated = _service.SetAvailability(id, dto.Available);
         return updated is null ? NotFound() : Ok(updated);
     }
+
+    [HttpDelete("{id:int}")]
+public IActionResult Delete(int id)
+{
+    var deleted = _service.Delete(id);
+    return deleted ? NoContent() : NotFound();
+}
 }
