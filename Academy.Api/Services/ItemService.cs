@@ -1,54 +1,58 @@
+using Academy.Api.Data;
 using Academy.Api.Dtos;
+using Academy.Api.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Academy.Api.Services;
 
 public class ItemService
 {
-    // Por enquanto os dados vivem em memória. Na Etapa 10 isso vira PostgreSQL.
-    private readonly List<ItemDto> _items = new()
-    {
-        new(1, "AK-47 | Redline", 120m, true),
-        new(2, "AWP | Asiimov", 430m, false),
-    };
+    private readonly AcademyDbContext _db;
 
-   public IReadOnlyList<ItemDto> GetAll(bool? available = null)
-{
-    if (available.HasValue)
+    public ItemService(AcademyDbContext db)
     {
-        return _items.Where(i => i.Available == available.Value).ToList();
-    }
-    return _items;
-}
-
-    public ItemDto? GetById(int id) => _items.FirstOrDefault(i => i.Id == id);
-
-   public ItemDto Create(CreateItemDto dto)
-{
-    if (string.IsNullOrWhiteSpace(dto.Name) || dto.Price <= 0)
-    {
-        throw new ArgumentException("Nome obrigatório e preço > 0.");
+        _db = db;
     }
 
-    var nextId = _items.Count == 0 ? 1 : _items.Max(i => i.Id) + 1;
-    var item = new ItemDto(nextId, dto.Name, dto.Price, true);
-    _items.Add(item);
-    return item;
-}
-
-    public ItemDto? SetAvailability(int id, bool available)
+    public async Task<List<ItemDto>> GetAllAsync(bool? available)
     {
-        var index = _items.FindIndex(i => i.Id == id);
-        if (index < 0) return null;
-        _items[index] = _items[index] with { Available = available };
-        return _items[index];
+        var query = _db.Items.AsQueryable();
+        if (available.HasValue)
+        {
+            query = query.Where(i => i.Available == available.Value);
+        }
+        var items = await query.OrderBy(i => i.Id).ToListAsync();
+        return items.Select(ToDto).ToList();
     }
 
-    public bool Delete(int id)
-{
-    var index = _items.FindIndex(i => i.Id == id);
-    if (index < 0) return false;
+    public async Task<ItemDto?> GetByIdAsync(int id)
+    {
+        var item = await _db.Items.FindAsync(id);
+        return item is null ? null : ToDto(item);
+    }
 
-    _items.RemoveAt(index);
-    return true;
+    public async Task<ItemDto> CreateAsync(CreateItemDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Name) || dto.Price <= 0)
+        {
+            throw new ArgumentException("Nome obrigatório e preço > 0.");
+        }
+        var item = new Item { Name = dto.Name, Price = dto.Price };
+        _db.Items.Add(item);
+        await _db.SaveChangesAsync();
+        return ToDto(item);
+    }
+
+    public async Task<ItemDto?> SetAvailabilityAsync(int id, bool available)
+    {
+        var item = await _db.Items.FindAsync(id);
+        if (item is null) return null;
+        item.Available = available;
+        await _db.SaveChangesAsync();
+        return ToDto(item);
+    }
+
+    private static ItemDto ToDto(Item i) =>
+        new(i.Id, i.Name, i.Price, i.Available);
 }
-}
+
