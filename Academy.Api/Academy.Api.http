@@ -1,6 +1,14 @@
-@Academy.Api_HostAddress = http://localhost:5064
+@Host = http://localhost:5064
 
-GET {{Academy.Api_HostAddress}}/weatherforecast/
+GET {{Host}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{Host}}/api/items
+Content-Type: application/json
+
+{
+  "name": "M4A4 | Redline",
+  "price": 45.50
+}

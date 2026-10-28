@@ -20,8 +20,3 @@ public class AcademyDbContext : DbContext
     }
 }
 
-<FollowUp>
-<ElicitationsGroup>
-Diz-me assim que tiveres estes dois ficheiros criados para avançarmos para o Passo 3 (configuração da *connection string* e do `Program.cs`)!
-</ElicitationsGroup>
-</FollowUp>

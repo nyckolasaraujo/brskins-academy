@@ -1,8 +1,19 @@
+using Academy.Api.Data;
+using Academy.Api.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Adiciona o DbContext ligando ao PostgreSQL através da Connection String "Default"[cite: 10]
+builder.Services.AddDbContext<AcademyDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+
+// Adiciona o ItemService com ciclo de vida Scoped[cite: 10]
+builder.Services.AddScoped<ItemService>();
 
 var app = builder.Build();
 
@@ -14,6 +25,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// (Podes manter ou remover o código de teste do tempo/weatherforecast do template, se quiseres)
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
