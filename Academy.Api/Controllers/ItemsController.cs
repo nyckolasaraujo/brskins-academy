@@ -1,4 +1,5 @@
 using Academy.Api.Dtos;
+using Academy.Api.Entities;
 using Academy.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,45 +17,44 @@ public class ItemsController : ControllerBase
     }
 
     [HttpGet]
-public IActionResult GetAll([FromQuery] bool? available)
-{
-    var items = _service.GetAll(available);
-    return Ok(items);
-}
+    public async Task<IActionResult> GetAll([FromQuery] bool? available)
+    {
+        var items = await _service.GetAll(available);
+        return Ok(items);
+    }
 
     [HttpGet("{id:int}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var item = _service.GetById(id);
+        var item = await _service.GetById(id);
         return item is null ? NotFound() : Ok(item);
     }
 
- [HttpPost]
-public IActionResult Create(CreateItemDto dto)
-{
-    try
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateItemDto dto)
     {
-        var created = _service.Create(dto);
-        return CreatedAtAction(
-            nameof(GetById), new { id = created.Id }, created);
+        try
+        {
+            var created = await _service.Create(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
     }
-    catch (ArgumentException ex)
-    {
-        return BadRequest(new { error = ex.Message });
-    }
-}
 
     [HttpPut("{id:int}/availability")]
-    public IActionResult UpdateAvailability(int id, UpdateAvailabilityDto dto)
+    public async Task<IActionResult> UpdateAvailability(int id, [FromBody] UpdateAvailabilityDto dto)
     {
-        var updated = _service.SetAvailability(id, dto.Available);
+        var updated = await _service.SetAvailability(id, dto.Available);
         return updated is null ? NotFound() : Ok(updated);
     }
 
     [HttpDelete("{id:int}")]
-public IActionResult Delete(int id)
-{
-    var deleted = _service.Delete(id);
-    return deleted ? NoContent() : NotFound();
-}
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _service.Delete(id);
+        return deleted ? NoContent() : NotFound();
+    }
 }

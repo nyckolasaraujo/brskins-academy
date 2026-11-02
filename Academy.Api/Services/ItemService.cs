@@ -1,58 +1,65 @@
 using Academy.Api.Data;
-using Academy.Api.Dtos;
 using Academy.Api.Entities;
+using Academy.Api.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace Academy.Api.Services;
 
 public class ItemService
 {
-    private readonly AcademyDbContext _db;
+    private readonly AcademyDbContext _context;
 
-    public ItemService(AcademyDbContext db)
+    public ItemService(AcademyDbContext context)
     {
-        _db = db;
+        _context = context;
     }
 
-    public async Task<List<ItemDto>> GetAllAsync(bool? available)
+    public async Task<List<Item>> GetAll(bool? available = null)
     {
-        var query = _db.Items.AsQueryable();
+        var query = _context.Items.AsQueryable();
         if (available.HasValue)
         {
             query = query.Where(i => i.Available == available.Value);
         }
-        var items = await query.OrderBy(i => i.Id).ToListAsync();
-        return items.Select(ToDto).ToList();
+        return await query.ToListAsync();
     }
 
-    public async Task<ItemDto?> GetByIdAsync(int id)
+    public async Task<Item?> GetById(int id)
     {
-        var item = await _db.Items.FindAsync(id);
-        return item is null ? null : ToDto(item);
+        return await _context.Items.FindAsync(id);
     }
 
-    public async Task<ItemDto> CreateAsync(CreateItemDto dto)
+    public async Task<Item> Create(CreateItemDto createDto)
     {
-        if (string.IsNullOrWhiteSpace(dto.Name) || dto.Price <= 0)
+        var item = new Item
         {
-            throw new ArgumentException("Nome obrigatório e preço > 0.");
-        }
-        var item = new Item { Name = dto.Name, Price = dto.Price };
-        _db.Items.Add(item);
-        await _db.SaveChangesAsync();
-        return ToDto(item);
+            Name = createDto.Name,
+            Price = createDto.Price,
+            Available = true
+        };
+
+        _context.Items.Add(item);
+        await _context.SaveChangesAsync();
+        return item;
     }
 
-    public async Task<ItemDto?> SetAvailabilityAsync(int id, bool available)
+    public async Task<Item?> SetAvailability(int id, bool available)
     {
-        var item = await _db.Items.FindAsync(id);
-        if (item is null) return null;
+        var item = await _context.Items.FindAsync(id);
+        if (item == null) return null;
+
         item.Available = available;
-        await _db.SaveChangesAsync();
-        return ToDto(item);
+        await _context.SaveChangesAsync();
+        return item;
     }
 
-    private static ItemDto ToDto(Item i) =>
-        new(i.Id, i.Name, i.Price, i.Available);
-}
+    public async Task<bool> Delete(int id)
+    {
+        var item = await _context.Items.FindAsync(id);
+        if (item == null) return false;
 
+        _context.Items.Remove(item);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+}
